@@ -1,9 +1,8 @@
 /**
  * Assignment 1: priority queue of processes
  * @file pcbtable.h
- * @author ??? (TODO: your name)
+ * @author Nathaniel VandenBerg & Salman Burhan
  * @brief This is the implementation file for the PCBTable class.
- * //You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
  * // Remember to add sufficient comments to your code
  */
 
@@ -15,7 +14,8 @@
  * @param size: the capacity of the PCBTable
  */
 PCBTable::PCBTable(int size) {
-   // TODO: add your code here
+    tableSize = size;
+    T* indexArray = new T[size];
 }
 
 /**
@@ -23,8 +23,7 @@ PCBTable::PCBTable(int size) {
  *
  */
 PCBTable::~PCBTable() {
-   // TODO: add your code here
-   // Delete all the PCBs in the table
+        delete[] indexArray;
 }
 
 /**
@@ -33,9 +32,9 @@ PCBTable::~PCBTable() {
  * @param idx: the index of the PCB to get
  * @return PCB*: pointer to the PCB at index "idx"
  */
-PCB* PCBTable::getPCB(unsigned int idx) {
-    // TODO: add your code here
-    return NULL;
+T PCBTable::getPCB(unsigned int idx) {
+    T pcbPtr = &indexArray[idx];
+    return pcbPtr;
 }
 
 /**
@@ -43,7 +42,8 @@ PCB* PCBTable::getPCB(unsigned int idx) {
  *
  * @param pcb: the PCB to add
  */
-void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
-    // TODO: add your code here
+void PCBTable::addPCB(T pcb, unsigned int idx) {
+    indexArray[idx] = *pcb;
+    PCBcount++;
     // Add a PCB pointer to the PCBTable at index idx.
 }

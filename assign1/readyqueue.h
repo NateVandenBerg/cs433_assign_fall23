@@ -1,7 +1,7 @@
 /**
  * Assignment 1: priority queue of processes
  * @file readyqueue.h
- * @author ??? (TODO: your name)
+ * @author Nathaniel VandenBerg & Salman Burhan
  * @brief ReadyQueue is a queue of PCB's that are in the READY state to be scheduled to run.
  * It should be a priority queue such that the process with the highest priority can be selected next.
  * @version 0.1
@@ -11,6 +11,9 @@
 #pragma once
 
 #include "pcb.h"
+#include "heap.h"
+
+typedef PCB* T;
 
 /**
  * @brief A queue of PCB's that are in the READY state to be scheduled to run.
@@ -18,7 +21,7 @@
  */
 class ReadyQueue {
 private:
-    // TODO: add your private member variables here
+    Heap* readyQueue;
     // choose a data structure for the ReadyQueue. No STL class is allowed.
 
 public:
@@ -40,14 +43,14 @@ public:
      *
      * @param pcbPtr: the pointer to the PCB to be added
      */
-	void addPCB(PCB* pcbPtr);
+	void addPCB(T pcbPtr);
 
     /**
      * @brief Remove and return the PCB with the highest priority from the queue
      *
      * @return PCB*: the pointer to the PCB with the highest priority
      */
-	PCB* removePCB();
+	T removePCB();
 
     /**
      * @brief Returns the number of elements in the queue.

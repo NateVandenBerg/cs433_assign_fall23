@@ -1,5 +1,8 @@
 #include <iostream>
 #include "readyqueue.h"
+#include "pcbtable.h"
+#include "pcb.h"
+#include "heap.h"
 
 using namespace std;
 
@@ -11,14 +14,15 @@ using namespace std;
  * @brief Constructor for the ReadyQueue class.
  */
  ReadyQueue::ReadyQueue()  {
-     //TODO: add your code here
+     Heap* readyQueue = new Heap;
  }
 
 /**
  *@brief Destructor
 */
 ReadyQueue::~ReadyQueue() {
-    //TODO: add your code to release dynamically allocate memory
+    readyQueue->~Heap();
+    delete readyQueue;
 }
 
 /**
@@ -26,8 +30,9 @@ ReadyQueue::~ReadyQueue() {
  *
  * @param pcbPtr: the pointer to the PCB to be added
  */
-void ReadyQueue::addPCB(PCB *pcbPtr) {
-    //TODO: add your code here
+void ReadyQueue::addPCB(T pcbPtr) {
+    pcbPtr->setState(ProcState::READY);
+    readyQueue->insert(pcbPtr);
     // When adding a PCB to the queue, you must change its state to READY.
 }
 
@@ -36,8 +41,9 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
  *
  * @return PCB*: the pointer to the PCB with the highest priority
  */
-PCB* ReadyQueue::removePCB() {
-    //TODO: add your code here
+T ReadyQueue::removePCB() {
+    T pcb = readyQueue->removeMax();
+    pcb->setState(ProcState::RUNNING);
     // When removing a PCB from the queue, you must change its state to RUNNING.
 }
 
@@ -47,12 +53,18 @@ PCB* ReadyQueue::removePCB() {
  * @return int: the number of PCBs in the queue
  */
 int ReadyQueue::size() {
-    //TODO: add your code here
+    return readyQueue->size();
 }
 
 /**
  * @brief Display the PCBs in the queue.
  */
 void ReadyQueue::displayAll() {
-    //TODO: add your code here
+    int queueSize = readyQueue->size();
+
+    for(int i = 0; i < queueSize; i++) {
+        T val = readyQueue->removeMax();
+        cout << endl;
+        val->display();
+    }
 }
